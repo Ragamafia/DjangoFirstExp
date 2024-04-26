@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Ragamafia LOCAL Library</h1>
+
+  <p>Добро пожаловать в <em>Ragamafia Library</em>!</p>
+  <p>В этом проекте Я стараюсь познать мир Django Framework на примере разработки небольшого сайта библиотеки.</p>
+
+
+  <p>Общие данные о книгах библиотеки:</p>
+  <ul>
+    <li><strong>Книг в библиотеке:</strong> {{ num_books }}</li>
+    <li><strong>Количество экземпляров:</strong> {{ num_instances }}</li>
+    <li><strong>Доступно экземпляров:</strong> {{ num_instances_available }}</li>
+    <li><strong>Авторов:</strong> {{ num_authors }}</li>
+    <li><strong>Жанров:</strong> {{ num_genres }}</li>
+    <li><strong>Harry Potter:</strong> {{ num_harry_potter }}</li>
+
+  </ul>
+
+
+<p>
+  You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{%
+  else %} times{% endif %}.
+</p>
+
+{% endblock %}
