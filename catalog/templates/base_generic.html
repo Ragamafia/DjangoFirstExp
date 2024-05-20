@@ -1,43 +1,63 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    {% block title %}<title>Ragamafia lesson Django</title>{% endblock %}
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!-- Добавление дополнительного статического CSS файла -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-  </head>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
 
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-2">
-          {% block sidebar %}
-            <ul class="sidebar-nav">
-              <li><a href="{% url 'index' %}">Домашняя</a></li>
-              <li><a href="{% url 'books' %}">Все книги</a></li>
-              <li><a href="{% url 'authors' %}">Все авторы</a></li>
+	{% block title %}<title>Ragamafia Home</title>{% endblock %}
 
-              {% if user.is_authenticated %}
-     <li>User: {{ user.get_username }}</li>
-     <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-   {% else %}
-     <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-   {% endif %}
-              <li><a href="">Все жанры</a></li>
-            </ul>
-          {% endblock %}
-        </div>
-        <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-      </div>
-    </div>
-  </body>
+	<!-- Добавление дополнительного статического CSS файла -->
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+
+</head>
+
+<style>
+	body {background: rgb(32,32,32);}
+	h1 {color: White;}
+	h2 {color: White;}
+	h4 {color: White;}
+	a {color: rgb(95, 158, 160); font-size: 16.5px; font-family: Verdana}
+	p {color: rgb(255, 248, 220); font-size: 16px;}
+	li {color: White; font-size: 15px;}
+	dd {color: White;}
+	label {color: rgb(169, 169, 169);}
+</style>
+
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2">
+
+			{% block sidebar %}
+			<ul class="sidebar-nav">
+				<li><strong><a href="{% url 'index' %}">Home</a></strong></li>
+				<li><strong><a href="{% url 'books' %}">Все книги</a></strong></li>
+				<li><strong><a href="{% url 'authors' %}">Все авторы</a></strong></li>
+				<li><strong><a href="{% url 'genres' %}">Все жанры</a></strong></li>
+				<li>_________________</li>
+				{% if user.is_authenticated %}
+				<li>User: {{ user.get_username }}</li>
+				<li><strong><a href="{% url 'logout'%}?next={{request.path}}">Выход</a></strong></li>
+				{% else %}
+				<li><strong><a href="{% url 'login'%}?next={{request.path}}">Log in</a></strong></li>
+				{% endif %}
+
+			</ul>
+			{% endblock %}
+		</div>
+
+		<div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+
+	</div>
+</div>
+
+</body>
 </html>

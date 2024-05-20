@@ -1,5 +1,7 @@
 {% extends "base_generic.html" %}
 
+{% block title %}<title>Список книг</title>{% endblock %}
+
 {% block content %}
 
     <h1>СПИСОК КНИГ</h1>
@@ -8,16 +10,14 @@
     <ul>
 
       {% for book in book_list %}
-      <li>
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
-      </li>
+      <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})</li>
+
       {% endfor %}
 
     </ul>
 
     {% else %}
-
-      <p>Данная книга отсутствует в библиотеке.</p>
+      <p>В библиотеке нет книг</p>
 
     {% endif %}
 

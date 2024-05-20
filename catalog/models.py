@@ -9,14 +9,14 @@ class Genre(models.Model):   # Модель жанра книги
     name = models.CharField(max_length=200, help_text="Введите жанр книги (например, научная фантастика, "
                                                       "документальная литература)")
 
-    def __str__(self):   # Возвращает модель (жанр) в удобочитаемом виде
+    def __str__(self):   # Возвращает название жанра в удобочитаемом виде
         return self.name
 
     def get_absolute_url(self):   # Возвращает URL-адрес для доступа к конкретному экземпляру автора
         return reverse('genre-detail', args=[str(self.id)])
 
 
-class Author(models.Model):   # Модель Автора
+class Author(models.Model):
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -26,22 +26,22 @@ class Author(models.Model):   # Модель Автора
     def get_absolute_url(self):   # Возвращает URL-адрес для доступа к конкретному автору
         return reverse('author-detail', args=[str(self.id)])
 
-    def __str__(self):   # Возвращает удобочитаемый вид
+    def __str__(self):
         return f'{self.last_name}, {self.first_name}'
 
 
-class Book(models.Model):    # Модель книги (но не конкретного экземпляра книги)
+class Book(models.Model):
 
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
-    # Внешний ключ используется, поскольку у книги может быть только один автор, но у автора может быть несколько книг.
+    # ForeignKey используется, поскольку у книги может быть только один автор, но у автора может быть несколько книг.
     summary = models.TextField(max_length=1000, help_text="Введите краткое описание книги.")
     isbn = models.CharField('ISBN', max_length=13, help_text='13 Character <a href="https://www.isbn-international'
                                                              '.org/content/what-isbn">ISBN number</a>')
     genre = models.ManyToManyField(Genre, help_text="Выберите жанр этой книги.")
     # ManyToManyField используется, поскольку жанр может содержать множество книг. Книги могут охватывать многие жанры.
 
-    def __str__(self):    # Возвращает модель (заголовок) в удобочитаемом виде
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):   # Возвращает URL-адрес для доступа к определенной книге
@@ -52,13 +52,14 @@ class Book(models.Model):    # Модель книги (но не конкрет
 
     def display_genre(self):   # Создает строку для жанра. Это необходимо для отображения жанра в администраторе.
         return ', '.join(
-            [genre.name for genre in self.genre.all()[:3]
+            [
+                genre.name for genre in self.genre.all()[:3]
              ]
         )
     display_genre.short_description = 'Genre'
 
 
-class BookInstance(models.Model):   # Модель, представляющая конкретный экземпляр книги.
+class BookInstance(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Уникальный идентификатор этой конкретной "
                                                                           "книги во всей библиотеке.")
