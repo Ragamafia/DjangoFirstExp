@@ -5,10 +5,8 @@ import uuid   # Требуется для генерации уникальны�
 
 
 class Genre(models.Model):   # Модель жанра книги
-
     name = models.CharField(max_length=200, help_text="Введите жанр книги (например, научная фантастика, "
                                                       "документальная литература)")
-
     def __str__(self):   # Возвращает название жанра в удобочитаемом виде
         return self.name
 
@@ -17,7 +15,6 @@ class Genre(models.Model):   # Модель жанра книги
 
 
 class Author(models.Model):
-
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
@@ -31,7 +28,6 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-
     title = models.CharField(max_length=200)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     # ForeignKey используется, поскольку у книги может быть только один автор, но у автора может быть несколько книг.
@@ -60,7 +56,6 @@ class Book(models.Model):
 
 
 class BookInstance(models.Model):
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Уникальный идентификатор этой конкретной "
                                                                           "книги во всей библиотеке.")
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
@@ -73,7 +68,6 @@ class BookInstance(models.Model):
         ('a', 'Доступна'),
         ('r', 'Забронирована'),
     )
-
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Забронировать '
                                                                                                     'наличие.')
 
